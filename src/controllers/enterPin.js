@@ -1,6 +1,5 @@
+const response = require('../helpers/standardResponse');
+
 exports.getEnterPin = (req, res) => {
-  return res.json({
-    success: true,
-    message: 'Input your PIN here',
-  });
+  return response(res, 'message from standard response');
 };

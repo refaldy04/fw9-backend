@@ -1,6 +1,3 @@
 exports.getConfirmation = (req, res) => {
-  return res.json({
-    success: true,
-    message: 'are you sure with this data?',
-  });
+  return response(res, 'message from standard response');
 };
