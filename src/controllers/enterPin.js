@@ -1,5 +1,9 @@
 const response = require('../helpers/standardResponse');
 
+const enterPinModels = require('../models/enterPin');
+
 exports.getEnterPin = (req, res) => {
-  return response(res, 'message from standard response');
+  enterPinModels.confirmPin((results) => {
+    return response(res, 'message from standard response', results);
+  });
 };

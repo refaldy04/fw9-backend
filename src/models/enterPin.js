@@ -1,7 +1,7 @@
 const db = require('../helpers/db');
 
 exports.confirmPin = (cb) => {
-  db.quary('SELECT * FROM users', (er, res) => {
+  db.query('SELECT email FROM users', (er, res) => {
     cb(res);
   });
 };
