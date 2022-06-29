@@ -7,3 +7,9 @@ exports.getAllUsers = (req, res) => {
     return response(res, 'message from standard response', result);
   });
 };
+
+exports.creatUsers = (req, res) => {
+  usersModels.createUsers(req.body, (result) => {
+    return response(res, 'Create user successfully', result);
+  });
+};
