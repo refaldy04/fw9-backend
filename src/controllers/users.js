@@ -26,13 +26,7 @@ exports.creatUsers = [
     }
     usersModels.createUsers(req.body, (err, result) => {
       if (err) {
-        if (err.code === '23505' && err.detail.includes('email')) {
-          const errRes = errorResponse('Email already exist', 'email');
-          return response(res, 'Error', errRes, 400);
-        } else if (err.code === '23505' && err.detail.includes('username')) {
-          const errRes = errorResponse('Username already exist', 'username');
-          return response(res, 'Error', errRes, 400);
-        }
+        return errorResponse(err, res);
       } else {
         return response(res, 'Create user successfully', result[0]);
       }
