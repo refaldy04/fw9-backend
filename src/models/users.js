@@ -11,8 +11,10 @@ exports.createUsers = (data, cb) => {
   const value = [data.email, data.password, data.username, data.pin];
   db.query(query, value, (err, res) => {
     if (res) {
+      // console.log(res);
       cb(err, res.rows);
     } else {
+      console.log(err);
       cb(err);
     }
   });
@@ -22,7 +24,13 @@ exports.updateUser = (id, data, cb) => {
   const query = 'UPDATE users SET email=$1, password=$2, username=$3, pin=$4 WHERE id=$5 RETURNING *';
   const value = [data.email, data.password, data.username, data.pin, id];
   db.query(query, value, (err, res) => {
-    cb(res.rows);
+    if (res) {
+      // console.log(res);
+      cb(err, res.rows);
+    } else {
+      console.log(err);
+      cb(err);
+    }
   });
 };
 

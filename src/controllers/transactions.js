@@ -10,7 +10,7 @@ exports.getAllTransaction = (req, res) => {
 };
 
 exports.createTransaction = [
-  body('time').isDate({ format: 'YYYY-MM-DD' }).withMessage('Date format invalid (YYYY-MM-DD)'),
+  body('time').isISO8601().withMessage('Date format invalid (ISO8601)'),
   (req, res) => {
     const validation = validationResult(req);
     if (!validation.isEmpty()) {
@@ -25,3 +25,5 @@ exports.createTransaction = [
     });
   },
 ];
+
+exports.editTransaction = () => {};
