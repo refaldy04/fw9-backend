@@ -5,7 +5,7 @@ const errorResponse = require('../helpers/errorResponse');
 
 exports.getAllUsers = (req, res) => {
   usersModels.getAllUsers((result) => {
-    return response(res, 'message from standard response', result);
+    return response(res, 'message from standard response: request success', result);
   });
 };
 
