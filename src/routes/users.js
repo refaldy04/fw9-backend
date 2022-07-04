@@ -16,6 +16,7 @@ const userValidation = [
 ];
 
 users.get('/', body('limit').toInt(), body('page').toInt(), usersController.getAllUsers);
+users.get('/:id', usersController.getUserById);
 users.post('/', ...userValidation, usersController.creatUsers);
 users.patch('/:id', ...userValidation, usersController.editUser);
 users.delete('/:id', usersController.deleteUser);

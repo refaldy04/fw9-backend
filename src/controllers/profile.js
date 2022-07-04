@@ -9,6 +9,17 @@ exports.getAllProfile = (req, res) => {
   });
 };
 
+exports.getProfileById = (req, res) => {
+  const { id } = req.params;
+  profileModels.getProfileById(id, (err, result) => {
+    if (result.rows.length > 0) {
+      return response(res, 'Detail transaction', result.rows[0]);
+    } else {
+      return res.redirect('/404');
+    }
+  });
+};
+
 exports.createProfile = (req, res) => {
   const validation = validationResult(req);
   if (!validation.isEmpty()) {

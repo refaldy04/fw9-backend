@@ -8,6 +8,17 @@ exports.getAllTransactionType = (req, res) => {
   });
 };
 
+exports.getTransactionTypeById = (req, res) => {
+  const { id } = req.params;
+  transactionTypeModels.getTransactionTypeById(id, (err, result) => {
+    if (result.rows.length > 0) {
+      return response(res, 'Detail transaction', result.rows[0]);
+    } else {
+      return res.redirect('/404');
+    }
+  });
+};
+
 exports.createTransactionType = (req, res) => {
   transactionTypeModels.createTransactionType(req.body, (err, result) => {
     if (err) {

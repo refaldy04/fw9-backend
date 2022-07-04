@@ -6,6 +6,12 @@ exports.getAllTransactionsType = (cb) => {
   });
 };
 
+exports.getTransactionTypeById = (id, cb) => {
+  db.query('SELECT * FROM transaction_type WHERE id=$1', [id], (err, res) => {
+    cb(err, res);
+  });
+};
+
 exports.createTransactionType = (data, cb) => {
   const query = 'INSERT INTO transaction_type(name, description) VALUES($1, $2) RETURNING *';
   const values = [data.name, data.description];

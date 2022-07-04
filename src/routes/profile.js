@@ -9,6 +9,7 @@ const profileValidation = [
 ];
 
 profile.get('/', profileController.getAllProfile);
+profile.get('/:id', profileController.getProfileById);
 profile.post('/', ...profileValidation, profileController.createProfile);
 profile.patch('/:id', ...profileValidation, profileController.editProfile);
 profile.delete('/:id', ...profileValidation, profileController.deleteProfile);

@@ -6,6 +6,12 @@ exports.getAllProfile = (cb) => {
   });
 };
 
+exports.getProfileById = (id, cb) => {
+  db.query('SELECT * FROM profile WHERE id=$1', [id], (err, res) => {
+    cb(err, res);
+  });
+};
+
 exports.createProfile = (data, cb) => {
   const query = 'INSERT INTO profile(fullname, balance, picture, user_id, phone_number) VALUES($1, $2, $3, $4, $5) RETURNING *';
   const values = [data.fullname, data.balance, data.picture, data.user_id, data.phone_number];
