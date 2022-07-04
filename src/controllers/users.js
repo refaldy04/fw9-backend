@@ -3,10 +3,16 @@ const usersModels = require('../models/users');
 const { validationResult } = require('express-validator');
 const errorResponse = require('../helpers/errorResponse');
 
+const { LIMIT_DATA } = process.env;
+
 exports.getAllUsers = (req, res) => {
-  const { search = '' } = req.query;
-  usersModels.getAllUsers(search, (err, result) => {
-    return response(res, 'message from standard response: request success', result);
+  const { search = '', limit = parseInt(LIMIT_DATA), page = 1 } = req.query;
+  const offset = (page - 1) * limit;
+  usersModels.getAllUsers(search, limit, offset, (err, result) => {
+    if (result.length < 1) {
+      return res.redirect('/404');
+    }
+    return response(res, 'List all users', result);
   });
 };
 
