@@ -4,7 +4,8 @@ const { validationResult } = require('express-validator');
 const errorResponse = require('../helpers/errorResponse');
 
 exports.getAllUsers = (req, res) => {
-  usersModels.getAllUsers((result) => {
+  const { search = '' } = req.query;
+  usersModels.getAllUsers(search, (err, result) => {
     return response(res, 'message from standard response: request success', result);
   });
 };

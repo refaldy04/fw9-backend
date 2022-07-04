@@ -1,8 +1,8 @@
 const db = require('../helpers/db');
 
-exports.getAllUsers = (cb) => {
-  db.query('SELECT * FROM users ORDER BY id ASC', (err, res) => {
-    cb(res.rows);
+exports.getAllUsers = (keyword, cb) => {
+  db.query(`SELECT * FROM users WHERE email LIKE '%${keyword}%' ORDER BY id ASC`, (err, res) => {
+    cb(err, res.rows);
   });
 };
 
