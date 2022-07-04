@@ -8,6 +8,12 @@ exports.getAllUsers = (keyword, limit = parseInt(LIMIT_DATA), offset = 0, cb) =>
   });
 };
 
+exports.countAllUsers = (keyword, cb) => {
+  db.query(`SELECT * FROM users WHERE email LIKE '%${keyword}%'`, (err, res) => {
+    cb(err, res.rowCount);
+  });
+};
+
 exports.createUsers = (data, cb) => {
   const query = 'INSERT INTO users(email, password, username, pin) VALUES($1, $2, $3, $4) RETURNING *';
   const value = [data.email, data.password, data.username, data.pin];

@@ -12,7 +12,15 @@ exports.getAllUsers = (req, res) => {
     if (result.length < 1) {
       return res.redirect('/404');
     }
-    return response(res, 'List all users', result);
+    const pageInfo = {};
+    usersModels.countAllUsers(search, (err, totalData) => {
+      pageInfo.totalData = totalData;
+      pageInfo.totalPage = Math.ceil(totalData / limit);
+      pageInfo.currentPage = parseInt(page);
+      pageInfo.nextPage = pageInfo.currentPage < pageInfo.totalPage ? pageInfo.currentPage + 1 : null;
+      pageInfo.prevPage = pageInfo.currentPage > 1 ? pageInfo.currentPage - 1 : null;
+      return response(res, 'List all users', result, pageInfo);
+    });
   });
 };
 
@@ -21,7 +29,7 @@ exports.creatUsers = (req, res) => {
   if (!validation.isEmpty()) {
     // is empty menandakan tidak ada error
     console.log(validation.array());
-    return response(res, 'Error occured', validation.array(), 400);
+    return response(res, 'Error occured', validation.array(), null, 400);
   }
   usersModels.createUsers(req.body, (err, result) => {
     if (err) {
