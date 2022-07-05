@@ -5,7 +5,7 @@
 -- Dumped from database version 14.3
 -- Dumped by pg_dump version 14.3
 
--- Started on 2022-07-03 09:00:16
+-- Started on 2022-07-05 16:59:49
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -201,6 +201,7 @@ COPY public.profile (id, fullname, balance, picture, user_id, phone_number) FROM
 3	Christiano Ronaldo	Rp80.000,00	http://wkwkwk	3	\N
 5	Christiano Ronaldo	Rp1.000,00	http://www.wkwkw.com	3	08123456789
 4	Vinsmoke Sanji	Rp1.000,00	http://hahahah	4	089765433678
+6	Christiano Ronaldo	Rp10.000,00	http://www.wkwkw.com	3	08223456789
 \.
 
 
@@ -224,6 +225,7 @@ COPY public.transaction (id, amount, recipient_id, sender_id, notes, "time", typ
 27	Rp1.000,00	3	3	tes	2022-11-30 00:00:00	3
 28	Rp100,00	3	3	tes	2022-11-30 00:00:00	3
 20	Rp75.000,00	7	7	update brow	2022-07-25 00:00:00	7
+29	Rp10.000,00	3	3	tes	2022-11-30 00:00:00	3
 \.
 
 
@@ -235,7 +237,8 @@ COPY public.transaction (id, amount, recipient_id, sender_id, notes, "time", typ
 
 COPY public.transaction_type (id, name, description) FROM stdin;
 1	Transfer	transaction both users
-2	Subscription	subscribe a service
+4	subscription	subscribe a service
+2	bayar	subscribe a service bayar
 \.
 
 
@@ -246,7 +249,6 @@ COPY public.transaction_type (id, name, description) FROM stdin;
 --
 
 COPY public.users (id, email, password, username, pin) FROM stdin;
-1	refaldy@gmail.com	1234	refaldy	123456
 32	reeeeee@gmail.com	$2b$10$KNp5dSrF/VSPpDE7BWy3k.0As5qWMabePdPE2Heg8Q93lEdGADR36	reee	101010
 34	reeba@gmail.com	$2b$10$nkvx19bentjl3SHeNaj98.4qMN9foM5LIKejcP.PkyrQbrpB/cKNy	reeeba	101010
 2	refaldya@gmail.com	$2b$10$FwDzyXGnBHaw1Gxn7qYo4ejfC8UB8pjjkR8wj3jzWJsb/mfD67UkW	refaldya	090909
@@ -256,6 +258,7 @@ COPY public.users (id, email, password, username, pin) FROM stdin;
 5	nana@gmail.com	$2b$10$ABgv7KbY8sDJFroUmNC80eDQc007dDHqerg7GAUiBdwqeHNJ7XG7e	nana	090909
 37	gabas@gmail.com	$2b$10$6eCyqYLGC0YY47zdqGQM9u0otGFfAlR4YyUIs6YJjR3ItipU2ORcS	gabas	101010
 38	sabas@gmail.com	$2b$10$4ryz0rROpxB2LYCe/gIB.eCBGogGFyGxIbOUVn7qN3NH3mSFHG3NW	sabas	101010
+39	sabasa@mail.com	$2b$10$HS6seTCrNxHvxqv5PmsjiuIbFrU/iD6OQunR5sEkQIQ76emq4Ei/S	sabasa	101010
 \.
 
 
@@ -265,7 +268,7 @@ COPY public.users (id, email, password, username, pin) FROM stdin;
 -- Name: profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.profile_id_seq', 5, true);
+SELECT pg_catalog.setval('public.profile_id_seq', 6, true);
 
 
 --
@@ -274,7 +277,7 @@ SELECT pg_catalog.setval('public.profile_id_seq', 5, true);
 -- Name: transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.transaction_id_seq', 28, true);
+SELECT pg_catalog.setval('public.transaction_id_seq', 29, true);
 
 
 --
@@ -283,7 +286,7 @@ SELECT pg_catalog.setval('public.transaction_id_seq', 28, true);
 -- Name: transaction_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.transaction_type_id_seq', 3, true);
+SELECT pg_catalog.setval('public.transaction_type_id_seq', 4, true);
 
 
 --
@@ -292,7 +295,7 @@ SELECT pg_catalog.setval('public.transaction_type_id_seq', 3, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 38, true);
+SELECT pg_catalog.setval('public.users_id_seq', 41, true);
 
 
 --
@@ -322,7 +325,7 @@ ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pk PRIMARY KEY (id);
 
 
--- Completed on 2022-07-03 09:00:17
+-- Completed on 2022-07-05 16:59:51
 
 --
 -- PostgreSQL database dump complete
