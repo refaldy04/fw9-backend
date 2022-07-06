@@ -2,6 +2,7 @@ const response = require('../helpers/standardResponse');
 const profileModels = require('../models/profile');
 const { validationResult } = require('express-validator');
 const errorResponse = require('../helpers/errorResponse');
+const upload = require('../helpers/upload').single('picture');
 
 exports.getAllProfile = (req, res) => {
   profileModels.getAllProfile((result) => {
@@ -35,14 +36,20 @@ exports.createProfile = (req, res) => {
 };
 
 exports.editProfile = (req, res) => {
-  const { id } = req.params;
-  profileModels.editProfile(id, req.body, (err, result) => {
+  upload(req, res, (err) => {
     if (err) {
       console.log(err);
-      return errorResponse(err, res);
-    } else {
-      return response(res, 'Edit profile successfully', result[0]);
+      return response(res, `Failed to update profile: ${err.message}`, null, null, 404);
     }
+    const { id } = req.params;
+    profileModels.editProfile(id, req.body, (err, result) => {
+      if (err) {
+        console.log(err);
+        return errorResponse(err, res);
+      } else {
+        return response(res, 'Edit profile successfully', result[0]);
+      }
+    });
   });
 };
 

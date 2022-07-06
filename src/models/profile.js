@@ -29,7 +29,7 @@ exports.editProfile = (id, data, cb) => {
   const value = [data.fullname, data.balance, data.picture, data.user_id, data.phone_number, id];
   db.query(query, value, (err, res) => {
     if (res) {
-      // console.log(res);
+      console.log(res.rows);
       cb(err, res.rows);
     } else {
       console.log(err);
