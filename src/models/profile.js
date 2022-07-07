@@ -24,12 +24,33 @@ exports.createProfile = (data, cb) => {
   });
 };
 
-exports.editProfile = (id, data, cb) => {
-  const query = 'UPDATE profile SET fullname=$1, balance=$2, picture=$3, user_id=$4, phone_number=$5 WHERE id=$6 RETURNING *';
-  const value = [data.fullname, data.balance, data.picture, data.user_id, data.phone_number, id];
-  db.query(query, value, (err, res) => {
+exports.editProfile = (id, data, picture, cb) => {
+  val = [id];
+  const filtered = {};
+  const obj = {
+    picture,
+    fullname: data.fullname,
+    balance: data.balance,
+    user_id: data.user_id,
+    phone_number: data.phone_number,
+  };
+
+  for (x in obj) {
+    if (obj[x] !== null) {
+      filtered[x] = obj[x];
+      val.push(obj[x]);
+    }
+  }
+
+  const key = Object.keys(filtered);
+  const finalResult = key.map((val, index) => `${val}=$${index + 2}`);
+  // console.log(finalResult);
+  // console.log(val);
+
+  const query = `UPDATE profile SET ${finalResult}  WHERE id=$1 RETURNING *`;
+  db.query(query, val, (err, res) => {
     if (res) {
-      console.log(res.rows);
+      console.log(res);
       cb(err, res.rows);
     } else {
       console.log(err);
@@ -42,6 +63,7 @@ exports.deleteProfile = (id, cb) => {
   const query = 'DELETE FROM profile WHERE id=$1 RETURNING *';
   const value = [id];
   db.query(query, value, (err, res) => {
+    // console.log(res);
     cb(res.rows);
   });
 };

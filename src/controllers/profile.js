@@ -36,18 +36,24 @@ exports.createProfile = (req, res) => {
 };
 
 exports.editProfile = (req, res) => {
+  const { id } = req.params;
   upload(req, res, (err) => {
     if (err) {
       console.log(err);
       return response(res, `Failed to update profile: ${err.message}`, null, null, 404);
     }
-    const { id } = req.params;
-    profileModels.editProfile(id, req.body, (err, result) => {
+
+    let filename = null;
+    if (req.file) {
+      filename = req.file.filename;
+    }
+
+    profileModels.editProfile(id, req.body, filename, (err, result) => {
       if (err) {
         console.log(err);
         return errorResponse(err, res);
       } else {
-        return response(res, 'Edit profile successfully', result[0]);
+        return response(res, 'Edit profile successfully', result);
       }
     });
   });
