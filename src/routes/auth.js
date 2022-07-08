@@ -3,7 +3,7 @@ const authController = require('../controllers/auth');
 const { body } = require('express-validator');
 const bcrypt = require('bcrypt');
 
-const userValidation = [
+const registerValidation = [
   body('password')
     .isLength({ min: 8 })
     .withMessage('password length min 8 character')
@@ -15,6 +15,9 @@ const userValidation = [
   body('username').isLength({ min: 4 }).withMessage('Username length minimal 4 character'),
 ];
 
-auth.post('/register', ...userValidation, authController.register);
+const createPinValidation = [body('email').isEmail().withMessage('Email format invalid'), body('pin').isLength({ min: 6, max: 6 }).withMessage('PIN length invalid').isNumeric().withMessage('PIN must be a number')];
+
+auth.post('/register', ...registerValidation, authController.register);
+auth.post('/createPin', ...createPinValidation, authController.createPin);
 
 module.exports = auth;

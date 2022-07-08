@@ -13,7 +13,7 @@ exports.getAllUsers = (req, res) => {
     return response(res, 'Please input between 0 or 1 for sorts key | 0 for ASC and 1 for DESC');
   }
   let sortVal = sort < 1 ? 'ASC' : 'DESC';
-  console.log(sort);
+  // console.log(sort);
   usersModels.getAllUsers(search, limit, offset, sortBy, sortVal, (err, result) => {
     if (result.length < 1) {
       return res.redirect('/404');
