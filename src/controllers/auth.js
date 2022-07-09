@@ -1,4 +1,6 @@
 const userModel = require('../models/users');
+const profileModel = require('../models/profile');
+const transactionModel = require('../models/transactions');
 const response = require('../helpers/standardResponse');
 const errorResponse = require('../helpers/errorResponse');
 const { validationResult } = require('express-validator');
@@ -77,5 +79,28 @@ exports.login = (req, res) => {
         console.log(e);
         return response(res, 'Email or password not match', null, null, 404);
       });
+  });
+};
+
+exports.getUserData = (req, res) => {
+  const id = req.authUser.id;
+  profileModel.getProfileByUserId(id, (err, result) => {
+    console.log(result);
+    if (result.rows.length > 0) {
+      return response(res, 'Detail transaction', result.rows[0]);
+    } else {
+      return res.redirect('/404');
+    }
+  });
+};
+
+exports.getUserTransaction = (req, res) => {
+  const id = req.authUser.id;
+  transactionModel.getTransactionUser(id, (err, result) => {
+    if (result.rows.length > 0) {
+      return response(res, 'List all transaction', result.rows);
+    } else {
+      return res.redirect('/404');
+    }
   });
 };

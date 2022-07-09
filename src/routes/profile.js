@@ -8,10 +8,10 @@ const profileValidation = [
   body('phone_number').isMobilePhone(['id-ID']).withMessage('You are not from Indonesia'),
 ];
 
-profile.get('/', profileController.getAllProfile);
-profile.get('/:id', profileController.getProfileById);
-profile.post('/', ...profileValidation, profileController.createProfile);
-profile.patch('/:id', ...profileValidation, profileController.editProfile);
-profile.delete('/:id', ...profileValidation, profileController.deleteProfile);
+profile.get('/profile', profileController.getAllProfile);
+profile.get('/profile/:id', profileController.getProfileById);
+profile.post('/profile', ...profileValidation, profileController.createProfile);
+profile.patch('/profile/:id', ...profileValidation, profileController.editProfile);
+profile.delete('/profile/:id', ...profileValidation, profileController.deleteProfile);
 
 module.exports = profile;

@@ -15,10 +15,10 @@ const userValidation = [
     }),
 ];
 
-users.get('/', body('limit').toInt(), body('page').toInt(), usersController.getAllUsers);
-users.get('/:id', usersController.getUserById);
-users.post('/', ...userValidation, usersController.creatUsers);
-users.patch('/:id', ...userValidation, usersController.editUser);
-users.delete('/:id', usersController.deleteUser);
+users.get('/user', body('limit').toInt(), body('page').toInt(), usersController.getAllUsers);
+users.get('/user/:id', usersController.getUserById);
+users.post('/user', ...userValidation, usersController.creatUsers);
+users.patch('/user/:id', ...userValidation, usersController.editUser);
+users.delete('/user/:id', usersController.deleteUser);
 
 module.exports = users;

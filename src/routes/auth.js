@@ -2,6 +2,7 @@ const auth = require('express').Router();
 const authController = require('../controllers/auth');
 const { body } = require('express-validator');
 const bcrypt = require('bcrypt');
+const authMiddleware = require('../middleware/auth');
 
 const registerValidation = [
   body('password')
@@ -22,5 +23,7 @@ const loginValidation = [body('email').isEmail().withMessage('Email format inval
 auth.post('/register', ...registerValidation, authController.register);
 auth.post('/createPin', ...createPinValidation, authController.createPin);
 auth.post('/login', ...loginValidation, authController.login);
+auth.get('/profile', authMiddleware, authController.getUserData);
+auth.get('/historyTransaction', authMiddleware, authController.getUserTransaction);
 
 module.exports = auth;
