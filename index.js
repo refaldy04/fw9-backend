@@ -1,4 +1,5 @@
 const express = require('express');
+const authMiddleware = require('./src/middleware/auth');
 
 global.__basepath = __dirname;
 
@@ -13,6 +14,17 @@ app.get('/', (req, res) => {
   return res.json({
     succes: true,
     message: 'This is Home Page :)',
+  });
+});
+
+app.get('/authenticatedUser', authMiddleware, (req, res) => {
+  const userModel = require('./src/models/users');
+  userModel.getUserById(req.authUser.id, (err, result) => {
+    const user = result.rows[0];
+    return res.status(200).json({
+      succes: true,
+      message: `Hello ${user.email}`,
+    });
   });
 });
 

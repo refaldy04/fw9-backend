@@ -2,6 +2,8 @@ const userModel = require('../models/users');
 const response = require('../helpers/standardResponse');
 const errorResponse = require('../helpers/errorResponse');
 const { validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.register = (req, res) => {
   const validation = validationResult(req);
@@ -45,5 +47,35 @@ exports.createPin = (req, res) => {
     } else {
       return response(res, 'Error: Email does not exist', null, null, 401);
     }
+  });
+};
+
+exports.login = (req, res) => {
+  const validation = validationResult(req);
+  if (!validation.isEmpty()) {
+    console.log(validation.array());
+    return response(res, 'Error occured', validation.array(), null, 400);
+  }
+  const { email, password } = req.body;
+  userModel.getUserByEmail(email, (err, result) => {
+    if (result.rows.length < 0) {
+      return response(res, 'User not found', null, null, 400);
+    }
+    const user = result.rows[0];
+    bcrypt
+      .compare(password, user.password)
+      .then((cpRes) => {
+        // console.log(cpRes);
+        if (cpRes) {
+          const token = jwt.sign({ id: user.id }, process.env.APP_SECRET || 'mYF1rStb4ck3nd');
+          return response(res, 'Login success', { token });
+        }
+        console.log(cpRes);
+        return response(res, 'Email or password not match', null, null, 404);
+      })
+      .catch((e) => {
+        console.log(e);
+        return response(res, 'Email or password not match', null, null, 404);
+      });
   });
 };

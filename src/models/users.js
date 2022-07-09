@@ -33,7 +33,7 @@ exports.createUsers = (data, cb) => {
   const value = [data.email, data.password, data.username, data.pin];
   db.query(query, value, (err, res) => {
     if (res) {
-      // console.log(res);
+      console.log(res);
       cb(err, res.rows);
     } else {
       console.log(err);

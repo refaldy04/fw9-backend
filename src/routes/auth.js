@@ -17,7 +17,10 @@ const registerValidation = [
 
 const createPinValidation = [body('email').isEmail().withMessage('Email format invalid'), body('pin').isLength({ min: 6, max: 6 }).withMessage('PIN length invalid').isNumeric().withMessage('PIN must be a number')];
 
+const loginValidation = [body('email').isEmail().withMessage('Email format invalid')];
+
 auth.post('/register', ...registerValidation, authController.register);
 auth.post('/createPin', ...createPinValidation, authController.createPin);
+auth.post('/login', ...loginValidation, authController.login);
 
 module.exports = auth;
