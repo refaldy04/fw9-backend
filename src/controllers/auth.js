@@ -138,12 +138,45 @@ exports.changePassword = (req, res) => {
     return response(res, 'Error occured', validation.array(), null, 400);
   }
   const { id } = req.params;
-  console.log(req.body);
   userModel.changePassword(id, req.body, (err, result) => {
     if (err) {
       return errorResponse(err, res);
     } else {
       return response(res, 'Change Password successfully', result[0]);
+    }
+  });
+};
+
+exports.changePin = (req, res) => {
+  const validation = validationResult(req);
+  if (!validation.isEmpty()) {
+    // is empty menandakan tidak ada error
+    console.log(validation.array());
+    return response(res, 'Error occured', validation.array(), null, 400);
+  }
+  const { id } = req.params;
+  userModel.changePin(id, req.body, (err, result) => {
+    if (err) {
+      return errorResponse(err, res);
+    } else {
+      return response(res, 'Change PIN successfully', result[0]);
+    }
+  });
+};
+
+exports.changePhoneNumber = (req, res) => {
+  const validation = validationResult(req);
+  if (!validation.isEmpty()) {
+    // is empty menandakan tidak ada error
+    console.log(validation.array());
+    return response(res, 'Error occured', validation.array(), null, 400);
+  }
+  const { id } = req.params;
+  profileModel.changePhoneNumber(id, req.body, (err, result) => {
+    if (err) {
+      return errorResponse(err, res);
+    } else {
+      return response(res, 'Change Phone Number successfully', result);
     }
   });
 };

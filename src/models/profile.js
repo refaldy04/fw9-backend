@@ -67,6 +67,20 @@ exports.editProfile = (id, data, picture, cb) => {
   });
 };
 
+exports.changePhoneNumber = (id, data, cb) => {
+  val = [id, data.phonenumber];
+  const query = `UPDATE profile SET phone_number=$2 WHERE user_id=$1 RETURNING *`;
+  db.query(query, val, (err, res) => {
+    if (res) {
+      // console.log(res);
+      cb(err, res.rows[0]);
+    } else {
+      console.log(err);
+      cb(err);
+    }
+  });
+};
+
 exports.deleteProfile = (id, cb) => {
   const query = 'DELETE FROM profile WHERE id=$1 RETURNING *';
   const value = [id];

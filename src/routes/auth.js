@@ -3,6 +3,7 @@ const authController = require('../controllers/auth');
 const { body } = require('express-validator');
 const bcrypt = require('bcrypt');
 const authMiddleware = require('../middleware/auth');
+const { changePhoneNumber } = require('../models/users');
 
 const registerValidation = [
   body('password')
@@ -30,6 +31,10 @@ const changePasswordValidation = [
     }),
 ];
 
+const changePinValidation = [body('pin').isLength({ min: 6, max: 6 }).withMessage('PIN length invalid').isNumeric().withMessage('PIN must be a number')];
+
+const changePhoneNumberValidation = [body('phonenumber').isMobilePhone(['id-ID']).withMessage('You are not from Indonesia')];
+
 auth.post('/register', ...registerValidation, authController.register);
 auth.post('/createPin', ...createPinValidation, authController.createPin);
 auth.post('/login', ...loginValidation, authController.login);
@@ -37,5 +42,7 @@ auth.get('/profile', authMiddleware, authController.getUserData);
 auth.get('/historyTransaction', authMiddleware, authController.getUserTransaction);
 auth.patch('/profile', authMiddleware, authController.editProfile);
 auth.patch('/changePassword/:id', authMiddleware, ...changePasswordValidation, authController.changePassword);
+auth.patch('/changePin/:id', authMiddleware, ...changePinValidation, authController.changePin);
+auth.patch('/phone/:id', authMiddleware, ...changePhoneNumberValidation, authController.changePhoneNumber);
 
 module.exports = auth;
