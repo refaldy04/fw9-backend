@@ -180,3 +180,20 @@ exports.changePhoneNumber = (req, res) => {
     }
   });
 };
+
+exports.addPhoneNumber = (req, res) => {
+  const validation = validationResult(req);
+  if (!validation.isEmpty()) {
+    // is empty menandakan tidak ada error
+    console.log(validation.array());
+    return response(res, 'Error occured', validation.array(), null, 400);
+  }
+  const { id } = req.params;
+  profileModel.changePhoneNumber(id, req.body, (err, result) => {
+    if (err) {
+      return errorResponse(err, res);
+    } else {
+      return response(res, 'Add Phone Number successfully', result);
+    }
+  });
+};

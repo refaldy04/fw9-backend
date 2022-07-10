@@ -44,5 +44,6 @@ auth.patch('/profile', authMiddleware, authController.editProfile);
 auth.patch('/changePassword/:id', authMiddleware, ...changePasswordValidation, authController.changePassword);
 auth.patch('/changePin/:id', authMiddleware, ...changePinValidation, authController.changePin);
 auth.patch('/phone/:id', authMiddleware, ...changePhoneNumberValidation, authController.changePhoneNumber);
+auth.post('/phone/:id', authMiddleware, ...changePhoneNumberValidation, authController.addPhoneNumber);
 
 module.exports = auth;
