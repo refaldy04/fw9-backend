@@ -20,11 +20,22 @@ const createPinValidation = [body('email').isEmail().withMessage('Email format i
 
 const loginValidation = [body('email').isEmail().withMessage('Email format invalid')];
 
+const changePasswordValidation = [
+  body('password')
+    .isLength({ min: 8 })
+    .withMessage('password length min 8 character')
+    .customSanitizer(async (val) => {
+      const hash = await bcrypt.hash(val, 10);
+      return hash;
+    }),
+];
+
 auth.post('/register', ...registerValidation, authController.register);
 auth.post('/createPin', ...createPinValidation, authController.createPin);
 auth.post('/login', ...loginValidation, authController.login);
 auth.get('/profile', authMiddleware, authController.getUserData);
 auth.get('/historyTransaction', authMiddleware, authController.getUserTransaction);
 auth.patch('/profile', authMiddleware, authController.editProfile);
+auth.patch('/changePassword/:id', authMiddleware, ...changePasswordValidation, authController.changePassword);
 
 module.exports = auth;
