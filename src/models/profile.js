@@ -43,20 +43,22 @@ exports.editProfile = (id, data, picture, cb) => {
 
   for (x in obj) {
     if (obj[x] !== null) {
-      filtered[x] = obj[x];
-      val.push(obj[x]);
+      if (obj[x] !== undefined) {
+        filtered[x] = obj[x];
+        val.push(obj[x]);
+      }
     }
   }
 
   const key = Object.keys(filtered);
   const finalResult = key.map((val, index) => `${val}=$${index + 2}`);
-  // console.log(finalResult);
-  // console.log(val);
+  console.log(finalResult);
+  console.log(val);
 
-  const query = `UPDATE profile SET ${finalResult}  WHERE id=$1 RETURNING *`;
+  const query = `UPDATE profile SET ${finalResult}  WHERE id=$1 or user_id=$1 RETURNING *`;
   db.query(query, val, (err, res) => {
     if (res) {
-      console.log(res);
+      // console.log(res);
       cb(err, res.rows);
     } else {
       console.log(err);

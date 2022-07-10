@@ -6,6 +6,7 @@ const errorResponse = require('../helpers/errorResponse');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const upload = require('../helpers/upload').single('picture');
 
 exports.register = (req, res) => {
   const validation = validationResult(req);
@@ -102,5 +103,29 @@ exports.getUserTransaction = (req, res) => {
     } else {
       return res.redirect('/404');
     }
+  });
+};
+
+exports.editProfile = (req, res) => {
+  const id = req.authUser.id;
+  upload(req, res, (err) => {
+    if (err) {
+      console.log(err);
+      return response(res, `Failed to update profile: ${err.message}`, null, null, 404);
+    }
+
+    let filename = null;
+    if (req.file) {
+      filename = req.file.filename;
+    }
+
+    profileModel.editProfile(id, req.body, filename, (err, result) => {
+      if (err) {
+        console.log(err);
+        return errorResponse(err, res);
+      } else {
+        return response(res, 'Edit profile successfully', result);
+      }
+    });
   });
 };

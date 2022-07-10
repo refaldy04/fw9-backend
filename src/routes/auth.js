@@ -25,5 +25,6 @@ auth.post('/createPin', ...createPinValidation, authController.createPin);
 auth.post('/login', ...loginValidation, authController.login);
 auth.get('/profile', authMiddleware, authController.getUserData);
 auth.get('/historyTransaction', authMiddleware, authController.getUserTransaction);
+auth.patch('/profile', authMiddleware, authController.editProfile);
 
 module.exports = auth;
