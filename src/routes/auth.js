@@ -41,9 +41,10 @@ auth.post('/login', ...loginValidation, authController.login);
 auth.get('/profile', authMiddleware, authController.getUserData);
 auth.get('/historyTransaction', authMiddleware, authController.getUserTransaction);
 auth.patch('/profile', authMiddleware, authController.editProfile);
-auth.patch('/changePassword/:id', authMiddleware, ...changePasswordValidation, authController.changePassword);
-auth.patch('/changePin/:id', authMiddleware, ...changePinValidation, authController.changePin);
-auth.patch('/phone/:id', authMiddleware, ...changePhoneNumberValidation, authController.changePhoneNumber);
-auth.post('/phone/:id', authMiddleware, ...changePhoneNumberValidation, authController.addPhoneNumber);
+auth.patch('/changePassword', authMiddleware, ...changePasswordValidation, authController.changePassword);
+auth.patch('/changePin', authMiddleware, ...changePinValidation, authController.changePin);
+auth.patch('/phone', authMiddleware, ...changePhoneNumberValidation, authController.changePhoneNumber);
+auth.post('/phone', authMiddleware, ...changePhoneNumberValidation, authController.addPhoneNumber);
+auth.post('/transfer', authMiddleware, ...changePhoneNumberValidation, authController.addPhoneNumber);
 
 module.exports = auth;

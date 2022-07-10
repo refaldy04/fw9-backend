@@ -137,7 +137,7 @@ exports.changePassword = (req, res) => {
     console.log(validation.array());
     return response(res, 'Error occured', validation.array(), null, 400);
   }
-  const { id } = req.params;
+  const { id } = req.authUser;
   userModel.changePassword(id, req.body, (err, result) => {
     if (err) {
       return errorResponse(err, res);
@@ -154,12 +154,12 @@ exports.changePin = (req, res) => {
     console.log(validation.array());
     return response(res, 'Error occured', validation.array(), null, 400);
   }
-  const { id } = req.params;
+  const { id } = req.authUser;
   userModel.changePin(id, req.body, (err, result) => {
     if (err) {
       return errorResponse(err, res);
     } else {
-      return response(res, 'Change PIN successfully', result[0]);
+      return response(res, 'Change PIN successfully', result.pin);
     }
   });
 };
@@ -171,7 +171,7 @@ exports.changePhoneNumber = (req, res) => {
     console.log(validation.array());
     return response(res, 'Error occured', validation.array(), null, 400);
   }
-  const { id } = req.params;
+  const { id } = req.authUser;
   profileModel.changePhoneNumber(id, req.body, (err, result) => {
     if (err) {
       return errorResponse(err, res);
@@ -188,7 +188,7 @@ exports.addPhoneNumber = (req, res) => {
     console.log(validation.array());
     return response(res, 'Error occured', validation.array(), null, 400);
   }
-  const { id } = req.params;
+  const { id } = req.authUser;
   profileModel.changePhoneNumber(id, req.body, (err, result) => {
     if (err) {
       return errorResponse(err, res);
