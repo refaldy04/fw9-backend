@@ -4,7 +4,7 @@ const responese = require('../helpers/standardResponse');
 const auth = (req, res, next) => {
   if (req.headers.authorization) {
     const auth = req.headers.authorization;
-    console.log(auth);
+    // console.log(auth);
     const prefix = 'Bearer';
     if (auth.startsWith(prefix)) {
       const token = auth.slice(prefix.length + 1, auth.length);

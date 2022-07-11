@@ -193,7 +193,30 @@ exports.addPhoneNumber = (req, res) => {
     if (err) {
       return errorResponse(err, res);
     } else {
-      return response(res, 'Add Phone Number successfully', result);
+      return response(res, 'Phone number change');
+    }
+  });
+};
+
+exports.transfer = (req, res) => {
+  const validation = validationResult(req);
+  if (!validation.isEmpty()) {
+    // is empty menandakan tidak ada error
+    console.log(validation.array());
+    return response(res, 'Error occured', validation.array(), null, 400);
+  }
+  const { id } = req.authUser;
+  // console.log(amount);
+  transactionModel.transfer(id, req.body, (err, result) => {
+    if (err) {
+      return errorResponse(err, res);
+    } else {
+      profileModel.increaseBalance(result[0].amount, result[0].recipient_id, (err, result) => {
+        if (err) return console.log(err);
+      });
+      profileModel.decreaseBalance(result[0].amount, id, (err, result) => {
+        return response(res, 'Balance decrease', result);
+      });
     }
   });
 };

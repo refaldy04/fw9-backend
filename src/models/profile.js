@@ -67,9 +67,35 @@ exports.editProfile = (id, data, picture, cb) => {
   });
 };
 
+exports.increaseBalance = (val, data, cb) => {
+  const query = `UPDATE profile SET balance=balance + $1 WHERE user_id=$2 RETURNING *`;
+  const values = [val, data];
+  db.query(query, values, (err, res) => {
+    // console.log(res.rows);
+    if (err) {
+      cb(err);
+    } else {
+      cb(err, res.rows);
+    }
+  });
+};
+
+exports.decreaseBalance = (val, data, cb) => {
+  const query = `UPDATE profile SET balance=balance - $1 WHERE user_id=$2 RETURNING *`;
+  const values = [val, data];
+  db.query(query, values, (err, res) => {
+    console.log(res.rows);
+    if (err) {
+      cb(err);
+    } else {
+      cb(err, res.rows);
+    }
+  });
+};
+
 exports.changePhoneNumber = (id, data, cb) => {
   val = [id, data.phonenumber];
-  const query = `UPDATE profile SET phone_number=$2 WHERE user_id=$1 RETURNING *`;
+  const query = `UPDATE profile SET phone_number=$2 WHERE user_id=$1 RETURNING phone_number`;
   db.query(query, val, (err, res) => {
     if (res) {
       // console.log(res);

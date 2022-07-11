@@ -20,10 +20,46 @@ exports.getTransactionUser = (id, cb) => {
 };
 
 exports.createTransaction = (data, cb) => {
-  const query = 'INSERT INTO transaction(amount, recipient_id, sender_id, notes, time, type_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
-  const values = [data.amount, data.recipient_id, data.sender_id, data.notes, data.time, data.type_id];
-  db.query(query, values, (err, res) => {
+  const query = `INSERT INTO transaction(amount, sender_id, recipient_id, notes, time, type_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
+  const val = [data.amount, data.sender_id, data.recipient_id, data.notes, data.time, data.type_id];
+  db.query(query, val, (err, res) => {
     if (err) {
+      // console.log(err);
+      cb(err);
+    } else {
+      cb(err, res.rows);
+    }
+  });
+};
+
+exports.transfer = (id, data, cb) => {
+  val = [];
+  const filtered = {};
+  const obj = {
+    sender_id: id,
+    recipient_id: data.recipient_id,
+    notes: data.notes,
+    time: data.time,
+    type_id: data.type_id,
+    amount: parseInt(data.amount),
+  };
+
+  for (x in obj) {
+    if (obj[x] !== null) {
+      if (obj[x] !== undefined) {
+        filtered[x] = obj[x];
+        val.push(obj[x]);
+      }
+    }
+  }
+
+  const key = Object.keys(filtered);
+  const finalResult = key.map((val, index) => `$${index + 1}`);
+  const query = `INSERT INTO transaction(${key}) VALUES(${finalResult}) RETURNING *`;
+  db.query(query, val, (err, res) => {
+    // console.log(res);
+    if (err) {
+      // console.log(err);
       cb(err);
     } else {
       cb(err, res.rows);

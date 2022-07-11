@@ -35,6 +35,8 @@ const changePinValidation = [body('pin').isLength({ min: 6, max: 6 }).withMessag
 
 const changePhoneNumberValidation = [body('phonenumber').isMobilePhone(['id-ID']).withMessage('You are not from Indonesia')];
 
+const transactionsValidation = [body('time').isISO8601().withMessage('Date format invalid (ISO8601)'), body('amount').isInt().withMessage('Input invalid, number only')];
+
 auth.post('/register', ...registerValidation, authController.register);
 auth.post('/createPin', ...createPinValidation, authController.createPin);
 auth.post('/login', ...loginValidation, authController.login);
@@ -45,6 +47,6 @@ auth.patch('/changePassword', authMiddleware, ...changePasswordValidation, authC
 auth.patch('/changePin', authMiddleware, ...changePinValidation, authController.changePin);
 auth.patch('/phone', authMiddleware, ...changePhoneNumberValidation, authController.changePhoneNumber);
 auth.post('/phone', authMiddleware, ...changePhoneNumberValidation, authController.addPhoneNumber);
-auth.post('/transfer', authMiddleware, ...changePhoneNumberValidation, authController.addPhoneNumber);
+auth.post('/transfer', authMiddleware, ...transactionsValidation, authController.transfer);
 
 module.exports = auth;
