@@ -13,8 +13,8 @@ exports.getTransactionById = (id, cb) => {
 };
 
 exports.getTransactionUser = (id, cb) => {
-  db.query('SELECT * FROM transaction WHERE sender_id=$1 OR recipient_id=$1', [id], (err, res) => {
-    console.log(res.rows);
+  db.query('SELECT * FROM transaction WHERE sender_id=$1 ', [id], (err, res) => {
+    // console.log(res.rows);
     cb(err, res);
   });
 };
