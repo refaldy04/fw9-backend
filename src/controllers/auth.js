@@ -231,18 +231,25 @@ exports.transfer = (req, res) => {
     return response(res, 'Error occured', validation.array(), null, 400);
   }
   const { id } = req.authUser;
-  // console.log(amount);
-  transactionModel.transfer(id, req.body, (err, result) => {
-    if (err) {
-      return errorResponse(err, res);
+  const { pin } = req.body;
+  userModel.getUserById(id, (err, user) => {
+    console.log(user.rows[0].pin);
+    if (pin == user.rows[0].pin) {
+      transactionModel.transfer(id, req.body, (err, result) => {
+        if (err) {
+          return errorResponse(err, res);
+        } else {
+          // console.log(result);
+          profileModel.increaseBalance(result[0].amount, result[0].recipient_id, (err, result) => {
+            if (err) return console.log(err);
+          });
+          profileModel.decreaseBalance(result[0].amount, result[0].sender_id, (err, result) => {
+            return response(res, 'Balance decrease', result);
+          });
+        }
+      });
     } else {
-      console.log(result);
-      profileModel.increaseBalance(result[0].amount, result[0].recipient_id, (err, result) => {
-        if (err) return console.log(err);
-      });
-      profileModel.decreaseBalance(result[0].amount, result[0].sender_id, (err, result) => {
-        return response(res, 'Balance decrease', result);
-      });
+      return response(res, 'PIN does not valid', null, null, 400);
     }
   });
 };
