@@ -12,10 +12,17 @@ exports.getTransactionById = (id, cb) => {
   });
 };
 
-exports.getTransactionUser = (id, cb) => {
-  db.query('SELECT * FROM transaction WHERE sender_id=$1 ', [id], (err, res) => {
-    // console.log(res.rows);
+exports.getTransactionUser = (id, limit, offset = 0, cb) => {
+  db.query('SELECT * FROM transaction WHERE sender_id=$1 LIMIT $2 OFFSET $3', [id, limit, offset], (err, res) => {
+    console.log(res.rows);
     cb(err, res);
+  });
+};
+
+exports.countAllTransaction = (id, cb) => {
+  db.query(`SELECT * FROM transaction WHERE sender_id=${id}`, (err, res) => {
+    // console.log(res.rowCount);
+    cb(err, res.rowCount);
   });
 };
 

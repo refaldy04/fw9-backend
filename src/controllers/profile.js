@@ -45,6 +45,7 @@ exports.editProfile = (req, res) => {
 
     let filename = null;
     if (req.file) {
+      console.log(req.file);
       filename = req.file.filename;
     }
 

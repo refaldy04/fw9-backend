@@ -30,6 +30,18 @@ exports.createProfile = (data, cb) => {
   });
 };
 
+exports.createProfileAfterRegister = (data, cb) => {
+  const query = 'INSERT INTO profile(user_id) VALUES($1) RETURNING *';
+  const values = [data];
+  db.query(query, values, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(err, res.rows);
+    }
+  });
+};
+
 exports.editProfile = (id, data, picture, cb) => {
   val = [id];
   const filtered = {};

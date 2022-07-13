@@ -15,13 +15,15 @@ exports.register = (req, res) => {
     console.log(validation.array());
     return response(res, 'Error occured', validation.array(), null, 400);
   }
-  userModel.createUsers(req.body, (err, result) => {
+  userModel.createUsers(req.body, (err, userResult) => {
     req.body.pin = null;
     if (err) {
       return errorResponse(err, res);
-    } else {
-      return response(res, 'Register Success');
     }
+    // console.log(userResult[0].id);
+    profileModel.createProfileAfterRegister(userResult[0].id, (err, result) => {
+      return response(res, 'wkwkwk', userResult);
+    });
   });
 };
 
@@ -95,11 +97,22 @@ exports.getUserData = (req, res) => {
   });
 };
 
+const { LIMIT_DATA } = process.env;
 exports.getUserTransaction = (req, res) => {
   const id = req.authUser.id;
-  transactionModel.getTransactionUser(id, (err, result) => {
+  const { search = '', limit = parseInt(LIMIT_DATA), page = 1, sortBy = 'id', sort = 0 } = req.query;
+  const offset = (page - 1) * limit;
+  transactionModel.getTransactionUser(id, limit, offset, (err, result) => {
     if (result.rows.length > 0) {
-      return response(res, 'List all transaction', result.rows);
+      const pageInfo = {};
+      transactionModel.countAllTransaction(id, (err, totalData) => {
+        pageInfo.totalData = totalData;
+        pageInfo.totalPage = Math.ceil(totalData / limit);
+        pageInfo.currentPage = parseInt(page);
+        pageInfo.nextPage = pageInfo.currentPage < pageInfo.totalPage ? pageInfo.currentPage + 1 : null;
+        pageInfo.prevPage = pageInfo.currentPage > 1 ? pageInfo.currentPage - 1 : null;
+        return response(res, 'List all transaction', result.rows, pageInfo);
+      });
     } else {
       return res.redirect('/404');
     }
@@ -211,10 +224,11 @@ exports.transfer = (req, res) => {
     if (err) {
       return errorResponse(err, res);
     } else {
+      console.log(result);
       profileModel.increaseBalance(result[0].amount, result[0].recipient_id, (err, result) => {
         if (err) return console.log(err);
       });
-      profileModel.decreaseBalance(result[0].amount, id, (err, result) => {
+      profileModel.decreaseBalance(result[0].amount, result[0].sender_id, (err, result) => {
         return response(res, 'Balance decrease', result);
       });
     }

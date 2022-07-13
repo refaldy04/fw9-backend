@@ -11,13 +11,14 @@ const auth = (req, res, next) => {
       try {
         const result = jwt.verify(token, process.env.APP_SECRET || 'mYF1rStb4ck3nd');
         req.authUser = result;
+        // console.log(result);
         next();
       } catch (e) {
         return responese(res, 'Token Expired', null, null, 401);
       }
     }
   } else {
-    return responese(res, 'Unautorized', null, null, 401);
+    return responese(res, 'You should to login first', null, null, 401);
   }
 };
 
