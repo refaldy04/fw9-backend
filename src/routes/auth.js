@@ -35,7 +35,7 @@ const changePinValidation = [body('pin').isLength({ min: 6, max: 6 }).withMessag
 
 const changePhoneNumberValidation = [body('phonenumber').isMobilePhone(['id-ID']).withMessage('You are not from Indonesia')];
 
-const transactionsValidation = [body('time').isISO8601().withMessage('Date format invalid (ISO8601)'), body('amount').isInt().withMessage('Input invalid, number only')];
+const transactionsValidation = [body('time').isISO8601().withMessage('Date format invalid (ISO8601)'), body('amount').isCurrency({ allow_negatives: false }).withMessage('Input invalid, positive number only')];
 
 auth.post('/register', ...registerValidation, authController.register);
 auth.post('/createPin', ...createPinValidation, authController.createPin);

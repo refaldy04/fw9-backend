@@ -96,7 +96,7 @@ exports.decreaseBalance = (val, data, cb) => {
   const query = `UPDATE profile SET balance=balance - $1 WHERE user_id=$2 RETURNING *`;
   const values = [val, data];
   db.query(query, values, (err, res) => {
-    console.log(res.rows);
+    // console.log(res.rows);
     if (err) {
       cb(err);
     } else {
