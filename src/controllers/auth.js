@@ -88,9 +88,9 @@ exports.login = (req, res) => {
 exports.getUserData = (req, res) => {
   const id = req.authUser.id;
   profileModel.getProfileByUserId(id, (err, result) => {
-    console.log(result);
+    // console.log(result);
     if (result.rows.length > 0) {
-      return response(res, 'Detail transaction', result.rows[0]);
+      return response(res, 'Detail user', result.rows[0]);
     } else {
       return res.redirect('/404');
     }
@@ -151,6 +151,7 @@ exports.changePassword = (req, res) => {
     return response(res, 'Error occured', validation.array(), null, 400);
   }
   const { id } = req.authUser;
+
   userModel.changePassword(id, req.body, (err, result) => {
     if (err) {
       return errorResponse(err, res);
@@ -168,11 +169,22 @@ exports.changePin = (req, res) => {
     return response(res, 'Error occured', validation.array(), null, 400);
   }
   const { id } = req.authUser;
-  userModel.changePin(id, req.body, (err, result) => {
-    if (err) {
-      return errorResponse(err, res);
+  const pin = req.body.pin;
+  const newPin = req.body.newpin;
+  userModel.getUserById(id, (err, user) => {
+    // console.log(user.rows[0]);
+    if (pin === user.rows[0].pin) {
+      userModel.changePin(id, newPin, (err, result) => {
+        console.log(newPin);
+        console.log(result);
+        if (err) {
+          return errorResponse(err, res);
+        } else {
+          return response(res, 'Change PIN successfully', result.pin);
+        }
+      });
     } else {
-      return response(res, 'Change PIN successfully', result.pin);
+      return response(res, 'Pliese input old PIN correctly');
     }
   });
 };

@@ -91,12 +91,12 @@ exports.changePassword = (id, data, cb) => {
 };
 
 exports.changePin = (id, data, cb) => {
-  val = [id, data.pin];
+  val = [id, data];
 
   const query = `UPDATE users SET pin=$2 WHERE id=$1 RETURNING *`;
   db.query(query, val, (err, res) => {
     if (res) {
-      // console.log(res);
+      // console.log(res.rows);
       cb(err, res.rows[0]);
     } else {
       console.log(err);

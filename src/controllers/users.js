@@ -32,6 +32,7 @@ exports.getAllUsers = (req, res) => {
 
 exports.getUserById = (req, res) => {
   const { id } = req.params;
+  console.log(id);
   usersModels.getUserById(id, (err, result) => {
     if (result.rows.length > 0) {
       return response(res, 'Detail user', result.rows[0]);
