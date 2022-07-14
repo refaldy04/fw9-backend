@@ -12,6 +12,7 @@ exports.getAllUsers = (keyword, limit = parseInt(LIMIT_DATA), offset = 0, sortBy
 
 exports.getUserById = (id, cb) => {
   db.query('SELECT * FROM users WHERE id=$1', [id], (err, res) => {
+    // console.log(res);
     cb(err, res);
   });
 };
@@ -76,12 +77,12 @@ exports.updateUser = (id, data, cb) => {
 };
 
 exports.changePassword = (id, data, cb) => {
-  val = [id, data.password];
+  val = [id, data];
 
   const query = `UPDATE users SET password=$2 WHERE id=$1 RETURNING *`;
   db.query(query, val, (err, res) => {
     if (res) {
-      // console.log(res);
+      console.log(res);
       cb(err, res.rows[0]);
     } else {
       console.log(err);

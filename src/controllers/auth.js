@@ -151,13 +151,26 @@ exports.changePassword = (req, res) => {
     return response(res, 'Error occured', validation.array(), null, 400);
   }
   const { id } = req.authUser;
-
-  userModel.changePassword(id, req.body, (err, result) => {
-    if (err) {
-      return errorResponse(err, res);
-    } else {
-      return response(res, 'Change Password successfully', result[0]);
-    }
+  const { password } = req.body;
+  userModel.getUserById(id, (err, result) => {
+    console.log(result.rows[0]);
+    const user = result.rows[0];
+    bcrypt.compare(password, user.password).then((cpRes) => {
+      // console.log(cpRes);
+      if (cpRes) {
+        userModel.changePassword(id, req.body.newpassword, (err, result) => {
+          console.log(result);
+          if (err) {
+            return errorResponse(err, res);
+          } else {
+            return response(res, 'Change Password successfully', result[0]);
+          }
+        });
+      } else {
+        console.log(cpRes);
+        return response(res, 'Email or password not match', null, null, 404);
+      }
+    });
   });
 };
 

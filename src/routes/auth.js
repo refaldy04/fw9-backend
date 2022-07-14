@@ -22,7 +22,14 @@ const createPinValidation = [body('email').isEmail().withMessage('Email format i
 const loginValidation = [body('email').isEmail().withMessage('Email format invalid')];
 
 const changePasswordValidation = [
-  body('password')
+  // body('password')
+  //   .isLength({ min: 8 })
+  //   .withMessage('password length min 8 character')
+  //   .customSanitizer(async (val) => {
+  //     const hash = await bcrypt.hash(val, 10);
+  //     return hash;
+  //   }),
+  body('newpassword')
     .isLength({ min: 8 })
     .withMessage('password length min 8 character')
     .customSanitizer(async (val) => {
