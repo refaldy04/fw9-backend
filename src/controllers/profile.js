@@ -3,10 +3,24 @@ const profileModels = require('../models/profile');
 const { validationResult } = require('express-validator');
 const errorResponse = require('../helpers/errorResponse');
 const upload = require('../helpers/upload').single('picture');
+const { LIMIT_DATA } = process.env;
 
 exports.getAllProfile = (req, res) => {
-  profileModels.getAllProfile((result) => {
-    return response(res, 'message from standard response: request success', result);
+  const { search = '', limit = parseInt(LIMIT_DATA), page = 1, sortBy = 'id' } = req.query;
+  const offset = (page - 1) * limit;
+  console.log('INI REQUEST BARU', sortBy);
+  profileModels.getAllProfile(limit, search, page, sortBy, (result) => {
+    console.log(result);
+    // return response(res, 'message from standard response: request success', result);
+    const pageInfo = {};
+    profileModels.countAllProfile(search, (err, totalData) => {
+      pageInfo.totalData = totalData;
+      pageInfo.totalPage = Math.ceil(totalData / limit);
+      pageInfo.currentPage = parseInt(page);
+      pageInfo.nextPage = pageInfo.currentPage < pageInfo.totalPage ? pageInfo.currentPage + 1 : null;
+      pageInfo.prevPage = pageInfo.currentPage > 1 ? pageInfo.currentPage - 1 : null;
+      return response(res, 'List all users', result, pageInfo);
+    });
   });
 };
 

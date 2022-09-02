@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const responese = require('../helpers/standardResponse');
 
 const auth = (req, res, next) => {
+  // console.log(req.headers.authorization);
   if (req.headers.authorization) {
     const auth = req.headers.authorization;
     // console.log(auth);

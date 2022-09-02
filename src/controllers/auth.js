@@ -22,7 +22,7 @@ exports.register = (req, res) => {
     }
     // console.log(userResult[0].id);
     profileModel.createProfileAfterRegister(userResult[0].id, (err, result) => {
-      return response(res, 'wkwkwk', userResult);
+      return response(res, 'Good Job', userResult);
     });
   });
 };
@@ -56,9 +56,10 @@ exports.createPin = (req, res) => {
 };
 
 exports.login = (req, res) => {
+  // console.log(req.body);
   const validation = validationResult(req);
   if (!validation.isEmpty()) {
-    console.log(validation.array());
+    // console.log(validation.array());
     return response(res, 'Error occured', validation.array(), null, 400);
   }
   const { email, password } = req.body;
@@ -75,7 +76,7 @@ exports.login = (req, res) => {
           const token = jwt.sign({ id: user.id }, process.env.APP_SECRET || 'mYF1rStb4ck3nd');
           return response(res, 'Login success', { token });
         }
-        console.log(cpRes);
+        // console.log(cpRes);
         return response(res, 'Email or password not match', null, null, 404);
       })
       .catch((e) => {
@@ -87,8 +88,9 @@ exports.login = (req, res) => {
 
 exports.getUserData = (req, res) => {
   const id = req.authUser.id;
+  console.log('ini dari auth', id);
   profileModel.getProfileByUserId(id, (err, result) => {
-    // console.log(result);
+    console.log(result.rows);
     if (result.rows.length > 0) {
       return response(res, 'Detail user', result.rows[0]);
     } else {
@@ -264,5 +266,12 @@ exports.transfer = (req, res) => {
     } else {
       return response(res, 'PIN does not valid', null, null, 400);
     }
+  });
+};
+
+exports.topup = (req, res) => {
+  const { id } = req.authUser;
+  userModel.topup(id, req.body, (err, result) => {
+    return response(res, 'Top Up successfully', result);
   });
 };

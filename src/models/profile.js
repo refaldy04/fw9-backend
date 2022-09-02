@@ -1,8 +1,16 @@
 const db = require('../helpers/db');
 
-exports.getAllProfile = (cb) => {
-  db.query('SELECT * FROM profile ORDER BY id ASC', (err, res) => {
+exports.getAllProfile = (limit, search, page, sortBy, cb) => {
+  db.query(`SELECT * FROM profile WHERE fullname LIKE '%${search}%' ORDER BY ${sortBy} ASC LIMIT $1`, [limit], (err, res) => {
+    console.log('ini dari modal', err);
     cb(res.rows);
+  });
+};
+
+exports.countAllProfile = (keyword, cb) => {
+  console.log('ini dari modal count', keyword);
+  db.query(`SELECT * FROM profile WHERE fullname LIKE '%${keyword}%'`, (err, res) => {
+    cb(err, res.rowCount);
   });
 };
 
@@ -14,6 +22,7 @@ exports.getProfileById = (id, cb) => {
 
 exports.getProfileByUserId = (id, cb) => {
   db.query('SELECT * FROM profile WHERE user_id=$1', [id], (err, res) => {
+    console.log(res.rows);
     cb(err, res);
   });
 };

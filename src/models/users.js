@@ -19,6 +19,7 @@ exports.getUserById = (id, cb) => {
 
 exports.getUserByEmail = (email, cb) => {
   db.query('SELECT * FROM users WHERE email=$1', [email], (err, res) => {
+    console.log(res.rows);
     cb(err, res);
   });
 };
@@ -111,5 +112,14 @@ exports.deleteUser = (id, cb) => {
   const value = [id];
   db.query(query, value, (err, res) => {
     cb(res.rows);
+  });
+};
+
+exports.topup = (id, data, cb) => {
+  const query = 'UPDATE profile SET balance=balance + $2 WHERE user_id=$1 RETURNING balance';
+  const value = [id, data.amount];
+  db.query(query, value, (err, res) => {
+    // console.log(res.rows);
+    cb(err, res.rows);
   });
 };

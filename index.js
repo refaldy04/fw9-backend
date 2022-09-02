@@ -1,5 +1,6 @@
 const express = require('express');
 const authMiddleware = require('./src/middleware/auth');
+var cors = require('cors');
 
 global.__basepath = __dirname;
 
@@ -9,6 +10,9 @@ require('dotenv').config();
 
 app.use(express.urlencoded({ extended: false }));
 app.use('/public', express.static('assets'));
+
+// app.options('/products/:id', cors());
+app.use(cors());
 
 app.get('/', (req, res) => {
   return res.json({
@@ -37,6 +41,6 @@ app.use('*', (req, res) => {
   });
 });
 
-app.listen(3333, () => {
-  console.log(`App is running on port 3333`);
+app.listen(3334, () => {
+  console.log(`App is running on port 3334`);
 });
