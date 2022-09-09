@@ -40,6 +40,8 @@ exports.createTransaction = (data, cb) => {
 };
 
 exports.transfer = (id, data, cb) => {
+  console.log('ini data', data);
+  console.log('ini data', id);
   val = [];
   const filtered = {};
   const obj = {
@@ -66,7 +68,7 @@ exports.transfer = (id, data, cb) => {
   db.query(query, val, (err, res) => {
     // console.log(res);
     if (err) {
-      // console.log(err);
+      console.log(err);
       cb(err);
     } else {
       cb(err, res.rows);

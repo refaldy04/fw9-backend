@@ -22,7 +22,6 @@ exports.getProfileById = (id, cb) => {
 
 exports.getProfileByUserId = (id, cb) => {
   db.query('SELECT * FROM profile WHERE user_id=$1', [id], (err, res) => {
-    console.log(res.rows);
     cb(err, res);
   });
 };

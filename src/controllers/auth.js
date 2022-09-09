@@ -28,6 +28,7 @@ exports.register = (req, res) => {
 };
 
 exports.createPin = (req, res) => {
+  console.log(req);
   const validation = validationResult(req);
   if (!validation.isEmpty()) {
     // is empty menandakan tidak ada error
@@ -43,7 +44,7 @@ exports.createPin = (req, res) => {
         userModel.updateUser(user.id, { pin: req.body.pin }, (req, resultUpdate) => {
           const userUpdated = resultUpdate;
           if (userUpdated.email == user.email) {
-            return response(res, 'Create PIN success');
+            return response(res, 'Create PIN success', resultUpdate.pin);
           }
         });
       } else {
@@ -68,13 +69,14 @@ exports.login = (req, res) => {
       return response(res, 'User not found', null, null, 400);
     }
     const user = result.rows[0];
+    console.log(user);
     bcrypt
       .compare(password, user.password)
       .then((cpRes) => {
         // console.log(cpRes);
         if (cpRes) {
           const token = jwt.sign({ id: user.id }, process.env.APP_SECRET || 'mYF1rStb4ck3nd');
-          return response(res, 'Login success', { token });
+          return response(res, 'Login success', { token, pin: user.pin, email: user.email });
         }
         // console.log(cpRes);
         return response(res, 'Email or password not match', null, null, 404);
@@ -90,7 +92,6 @@ exports.getUserData = (req, res) => {
   const id = req.authUser.id;
   console.log('ini dari auth', id);
   profileModel.getProfileByUserId(id, (err, result) => {
-    console.log(result.rows);
     if (result.rows.length > 0) {
       return response(res, 'Detail user', result.rows[0]);
     } else {
@@ -239,6 +240,10 @@ exports.addPhoneNumber = (req, res) => {
 };
 
 exports.transfer = (req, res) => {
+  console.log('ini req body', req.body);
+  req.body.type_id = parseInt(req.body.type_id);
+  req.body.recipient_id = parseInt(req.body.recipient_id);
+  req.body.amount = parseInt(req.body.amount);
   const validation = validationResult(req);
   if (!validation.isEmpty()) {
     // is empty menandakan tidak ada error
@@ -246,6 +251,7 @@ exports.transfer = (req, res) => {
     return response(res, 'Error occured', validation.array(), null, 400);
   }
   const { id } = req.authUser;
+  console.log('ini id', id);
   const { pin } = req.body;
   userModel.getUserById(id, (err, user) => {
     console.log(user.rows[0].pin);
@@ -259,7 +265,7 @@ exports.transfer = (req, res) => {
             if (err) return console.log(err);
           });
           profileModel.decreaseBalance(result[0].amount, result[0].sender_id, (err, result) => {
-            return response(res, 'Balance decrease', result);
+            return response(res, 'Balance decrease', result, null, 200);
           });
         }
       });
@@ -273,5 +279,19 @@ exports.topup = (req, res) => {
   const { id } = req.authUser;
   userModel.topup(id, req.body, (err, result) => {
     return response(res, 'Top Up successfully', result);
+  });
+};
+
+exports.checkPin = (req, res) => {
+  const { id } = req.authUser;
+  console.log(id);
+  const { pin } = req.body;
+  userModel.getUserById(id, (err, user) => {
+    console.log(user.rows[0].pin);
+    if (pin == user.rows[0].pin) {
+      return response(res, 'PIN valid');
+    } else {
+      return response(res, 'PIN does not valid', null, null, 400);
+    }
   });
 };

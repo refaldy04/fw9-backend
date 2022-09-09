@@ -10,7 +10,7 @@ exports.getAllProfile = (req, res) => {
   const offset = (page - 1) * limit;
   console.log('INI REQUEST BARU', sortBy);
   profileModels.getAllProfile(limit, search, page, sortBy, (result) => {
-    console.log(result);
+    // console.log(result);
     // return response(res, 'message from standard response: request success', result);
     const pageInfo = {};
     profileModels.countAllProfile(search, (err, totalData) => {
@@ -26,6 +26,7 @@ exports.getAllProfile = (req, res) => {
 
 exports.getProfileById = (req, res) => {
   const { id } = req.params;
+  console.log(id);
   profileModels.getProfileById(id, (err, result) => {
     if (result.rows.length > 0) {
       return response(res, 'Detail transaction', result.rows[0]);

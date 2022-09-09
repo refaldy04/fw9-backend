@@ -53,5 +53,6 @@ auth.patch('/phone', authMiddleware, ...changePhoneNumberValidation, authControl
 auth.post('/phone', authMiddleware, ...changePhoneNumberValidation, authController.addPhoneNumber);
 auth.post('/transfer', authMiddleware, ...transactionsValidation, authController.transfer);
 auth.post('/topup', authMiddleware, authController.topup);
+auth.post('/checkPin', authMiddleware, authController.checkPin);
 
 module.exports = auth;
