@@ -7,6 +7,7 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const upload = require('../helpers/upload').single('picture');
+const uploadCloud = require('../helpers/cloudUpload').single('picture');
 
 exports.register = (req, res) => {
   const validation = validationResult(req);
@@ -124,12 +125,11 @@ exports.getUserTransaction = (req, res) => {
 
 exports.editProfile = (req, res) => {
   const id = req.authUser.id;
-  upload(req, res, (err) => {
+  uploadCloud(req, res, (err) => {
     if (err) {
       console.log(err);
-      return response(res, `Failed to update profile: ${err.message}`, null, null, 404);
+      return response(res, `Failed Upload ${err.message}`, null, null, 400);
     }
-
     let filename = null;
     if (req.file) {
       filename = req.file.filename;
@@ -144,6 +144,12 @@ exports.editProfile = (req, res) => {
       }
     });
   });
+  // upload(req, res, (err) => {
+  //   if (err) {
+  //     console.log(err);
+  //     return response(res, `Failed to update profile: ${err.message}`, null, null, 404);
+  //   }
+  // });
 };
 
 exports.changePassword = (req, res) => {
