@@ -1,0 +1,1237 @@
+{
+	"info": {
+		"_postman_id": "3a1f9948-655c-445a-ac69-89866d0005db",
+		"name": "BACKEND APP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ADMIN",
+			"item": [
+				{
+					"name": "TRANSACTION TYPE",
+					"item": [
+						{
+							"name": "GET ALL TRANSACTION TYPE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/transactionType",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"transactionType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE TRANSACTION TYPE",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "subscription",
+											"type": "default"
+										},
+										{
+											"key": "description",
+											"value": "subscribe a service",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/transactionType",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"transactionType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT TRANSACTION TYPE",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "bayar",
+											"type": "default"
+										},
+										{
+											"key": "description",
+											"value": "subscribe a service bayar",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/transactionType/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"transactionType",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE TRANSACTION TYPE",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/transactionType/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"transactionType",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL TRANSACTION TYPE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/transactionType/3445",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"transactionType",
+										"3445"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PROFILE",
+					"item": [
+						{
+							"name": "GET ALL PROFILE",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/admin/profile?limit=3",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE PROFILE",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "balance",
+											"value": "40000",
+											"type": "default"
+										},
+										{
+											"key": "picture",
+											"value": "apa.jpg",
+											"type": "default"
+										},
+										{
+											"key": "fullname",
+											"value": "users users",
+											"type": "default"
+										},
+										{
+											"key": "user_id",
+											"value": "53",
+											"type": "default"
+										},
+										{
+											"key": "phone_number",
+											"value": "08123456789",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/profile",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT PROFILE",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/design.com/Downloads/dino-green.jpg"
+										},
+										{
+											"key": "fullname",
+											"value": "Refaldy B",
+											"type": "default",
+											"disabled": true
+										},
+										{
+											"key": "balance",
+											"value": "200000",
+											"type": "default"
+										},
+										{
+											"key": "user_id",
+											"value": "53",
+											"type": "default"
+										},
+										{
+											"key": "phone_number",
+											"value": "08123478944",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/profile/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE PROFILE",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/profile/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"profile",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL PROFILE",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/admin/profile/63",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile",
+										"63"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TRANSACTIONS",
+					"item": [
+						{
+							"name": "GET ALL TRANSACTIONS",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/transactions",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"transactions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE TRANSACTION",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "amount",
+											"value": "10000",
+											"type": "default"
+										},
+										{
+											"key": "sender_id",
+											"value": "53",
+											"type": "default"
+										},
+										{
+											"key": "recipient_id",
+											"value": "60",
+											"type": "default"
+										},
+										{
+											"key": "notes",
+											"value": "tes",
+											"type": "default"
+										},
+										{
+											"key": "time",
+											"value": "2022-03-04",
+											"type": "default"
+										},
+										{
+											"key": "type_id",
+											"value": "1",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/transaction",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"transaction"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT TRANSACTION",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "amount",
+											"value": "75000",
+											"type": "default"
+										},
+										{
+											"key": "recipient_id",
+											"value": "7",
+											"type": "default"
+										},
+										{
+											"key": "sender_id",
+											"value": "7",
+											"type": "default"
+										},
+										{
+											"key": "notes",
+											"value": "update brow",
+											"type": "default"
+										},
+										{
+											"key": "time",
+											"value": "2022-07-25",
+											"type": "default"
+										},
+										{
+											"key": "type_id",
+											"value": "7",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/transactions/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"transactions",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE TRANSACTION",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/transactions/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"transactions",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "21"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL TRANSACTION",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/transactions/11",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"transactions",
+										"11"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "USERS",
+					"item": [
+						{
+							"name": "GET ALL USERS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/user?limit=3",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"user"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE USER",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "sab@mail.com",
+											"type": "default"
+										},
+										{
+											"key": "password",
+											"value": "66666666",
+											"type": "default"
+										},
+										{
+											"key": "username",
+											"value": "angga",
+											"type": "default"
+										},
+										{
+											"key": "pin",
+											"value": "101010",
+											"type": "default"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "default",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "default",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EDIT USERS",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "refaldy@gmail.com",
+											"type": "default"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "default"
+										},
+										{
+											"key": "username",
+											"value": "refaldy",
+											"type": "default"
+										},
+										{
+											"key": "pin",
+											"value": "090909",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/users/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "58"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE USER",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/users/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL USER",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/admin/user/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"user",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "72"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "AUTHENTICATION",
+			"item": [
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "primary@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "primary123",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "primary",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "primary@mail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "primary123",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE PIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "jackjack@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "pin",
+									"value": "222333",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/createPin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"createPin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET PROFILE ALREADY LOGIN",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HISTORY TRANSACTION",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/historyTransaction?limit=5&page=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"historyTransaction"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL PROFILE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/allProfile?search=hello&page=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"allProfile"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "hello"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TRANSFER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "amount",
+									"value": "5000",
+									"type": "default"
+								},
+								{
+									"key": "recipient_id",
+									"value": "53",
+									"type": "default"
+								},
+								{
+									"key": "notes",
+									"value": "text",
+									"type": "default"
+								},
+								{
+									"key": "time",
+									"value": "2022-03-04",
+									"type": "default"
+								},
+								{
+									"key": "type_id",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "pin",
+									"value": "444111",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/transfer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transfer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADD PHONE NUMBER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "phonenumber",
+									"value": "08123456789",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/phone",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"phone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EDIT PROFILE AFTER LOGIN",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "picture",
+									"type": "file",
+									"src": "/C:/Users/design.com/Downloads/227652.png"
+								},
+								{
+									"key": "fullname",
+									"value": "Jack Jack",
+									"type": "default"
+								},
+								{
+									"key": "phone_number",
+									"value": "08123456789",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/profile/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CHANGE PASSWORD",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "default"
+								},
+								{
+									"key": "newpassword",
+									"value": "hahahaha",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/changePassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CHANGE PIN",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pin",
+									"value": "123456",
+									"type": "default"
+								},
+								{
+									"key": "newpin",
+									"value": "444555",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/changePin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"changePin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CHANGE PHONE NUMBER",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "phonenumber",
+									"value": "08133344666",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/phone",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"phone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TOPUP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "amount",
+									"value": "",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/topup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CHECK PIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/checkPin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"checkPin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AUTH TEST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/authenticatedUser",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"authenticatedUser"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
