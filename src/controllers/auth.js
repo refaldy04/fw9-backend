@@ -66,7 +66,8 @@ exports.login = (req, res) => {
   }
   const { email, password } = req.body;
   userModel.getUserByEmail(email, (err, result) => {
-    if (result.rows.length < 0) {
+    console.log(result.rows.length);
+    if (result.rows.length <= 0) {
       return response(res, 'User not found', null, null, 400);
     }
     const user = result.rows[0];

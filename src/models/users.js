@@ -19,6 +19,7 @@ exports.getUserById = (id, cb) => {
 };
 
 exports.getUserByEmail = (email, cb) => {
+  console.log(email);
   db.query('SELECT * FROM users WHERE email=$1 ', [email], (err, res) => {
     console.log(res.rows);
     cb(err, res);
