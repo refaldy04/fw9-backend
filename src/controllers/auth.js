@@ -105,7 +105,7 @@ exports.getUserData = (req, res) => {
 const { LIMIT_DATA } = process.env;
 exports.getUserTransaction = (req, res) => {
   const id = req.authUser.id;
-  const { search = '', limit = parseInt(LIMIT_DATA), page = 1, sortBy = 'id', sort = 0 } = req.query;
+  const { search = '', limit = parseInt(LIMIT_DATA), page = 1 } = req.query;
   const offset = (page - 1) * limit;
   transactionModel.getTransactionUser(id, limit, offset, (err, result) => {
     if (result.rows.length > 0) {

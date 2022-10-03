@@ -1,7 +1,7 @@
 const db = require('../helpers/db');
 
-exports.getAllProfile = (limit, search, page, sortBy, cb) => {
-  db.query(`SELECT * FROM profile WHERE fullname LIKE '%${search}%' ORDER BY ${sortBy} ASC LIMIT $1`, [limit], (err, res) => {
+exports.getAllProfile = (limit, search, offset, sortBy, cb) => {
+  db.query(`SELECT * FROM profile WHERE fullname LIKE '%${search}%' ORDER BY ${sortBy} ASC LIMIT $1 OFFSET ${offset}`, [limit], (err, res) => {
     console.log('ini dari modal', err);
     cb(res.rows);
   });

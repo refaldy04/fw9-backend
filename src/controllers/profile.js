@@ -9,7 +9,7 @@ exports.getAllProfile = (req, res) => {
   const { search = '', limit = parseInt(LIMIT_DATA), page = 1, sortBy = 'id' } = req.query;
   const offset = (page - 1) * limit;
   console.log('INI REQUEST BARU', sortBy);
-  profileModels.getAllProfile(limit, search, page, sortBy, (result) => {
+  profileModels.getAllProfile(limit, search, offset, sortBy, (result) => {
     // console.log(result);
     // return response(res, 'message from standard response: request success', result);
     const pageInfo = {};
