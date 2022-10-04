@@ -108,7 +108,7 @@ exports.getUserTransaction = (req, res) => {
   const { search = '', limit = parseInt(LIMIT_DATA), page = 1 } = req.query;
   const offset = (page - 1) * limit;
   transactionModel.getTransactionUser(id, limit, offset, (err, result) => {
-    if (result.rows.length > 0) {
+    if (result.length > 0) {
       const pageInfo = {};
       transactionModel.countAllTransaction(id, (err, totalData) => {
         pageInfo.totalData = totalData;
@@ -116,7 +116,7 @@ exports.getUserTransaction = (req, res) => {
         pageInfo.currentPage = parseInt(page);
         pageInfo.nextPage = pageInfo.currentPage < pageInfo.totalPage ? pageInfo.currentPage + 1 : null;
         pageInfo.prevPage = pageInfo.currentPage > 1 ? pageInfo.currentPage - 1 : null;
-        return response(res, 'List all transaction', result.rows, pageInfo);
+        return response(res, 'List all transaction', result, pageInfo);
       });
     } else {
       return res.redirect('/404');
