@@ -2,8 +2,6 @@ const express = require('express');
 const authMiddleware = require('./src/middleware/auth');
 var cors = require('cors');
 
-global.__basepath = __dirname;
-
 const app = express();
 
 require('dotenv').config();

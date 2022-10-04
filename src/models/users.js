@@ -12,8 +12,8 @@ exports.getAllUsers = (keyword, limit = parseInt(LIMIT_DATA), offset = 0, sortBy
 
 exports.getUserById = (id, cb) => {
   db.query('SELECT * FROM users WHERE id=$1', [id], (err, res) => {
-    console.log(res.rows);
-    console.log(err);
+    // console.log(res.rows);
+    // console.log(err);
     cb(err, res);
   });
 };

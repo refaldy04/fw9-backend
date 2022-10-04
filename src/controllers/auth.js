@@ -163,10 +163,10 @@ exports.changePassword = (req, res) => {
   const { id } = req.authUser;
   const { password } = req.body;
   userModel.getUserById(id, (err, result) => {
-    console.log(result.rows[0]);
+    console.log(req.body.newpassword);
     const user = result.rows[0];
     bcrypt.compare(password, user.password).then((cpRes) => {
-      // console.log(cpRes);
+      console.log(cpRes);
       if (cpRes) {
         userModel.changePassword(id, req.body.newpassword, (err, result) => {
           console.log(result);
