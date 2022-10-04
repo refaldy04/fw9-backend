@@ -7,7 +7,7 @@ const authMiddleware = require('../middleware/auth');
 
 const registerValidation = [
   body('password')
-    .isLength({ min: 3 })
+    .isLength({ min: 8 })
     .withMessage('password length min 8 character')
     .customSanitizer(async (val) => {
       const hash = await bcrypt.hash(val, 10);
