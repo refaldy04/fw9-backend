@@ -291,14 +291,23 @@ exports.topup = (req, res) => {
 
 exports.checkPin = (req, res) => {
   const { id } = req.authUser;
-  console.log(id);
   const { pin } = req.body;
   userModel.getUserById(id, (err, user) => {
-    console.log(user.rows[0].pin);
     if (pin == user.rows[0].pin) {
       return response(res, 'PIN valid');
     } else {
       return response(res, 'PIN does not valid', null, null, 400);
+    }
+  });
+};
+
+exports.checkEmail = (req, res) => {
+  const { email } = req.body;
+  userModel.getUserByEmail(email, (err, user) => {
+    if (user.rows.length >= 1) {
+      return response(res, 'User founded');
+    } else {
+      return response(res, 'User not found with this email', user[0].email, null, 400);
     }
   });
 };

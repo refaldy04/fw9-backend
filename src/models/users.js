@@ -125,3 +125,12 @@ exports.topup = (id, data, cb) => {
     cb(err, res.rows);
   });
 };
+
+exports.checkEmail = (email, cb) => {
+  const query = 'SELECT * FROM users WHERE email=$1';
+  const value = [email];
+  db.query(query, value, (err, res) => {
+    // console.log('ini harusnya email', res.rows[0].email);
+    cb(err, res.rows);
+  });
+};
