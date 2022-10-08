@@ -303,11 +303,12 @@ exports.checkPin = (req, res) => {
 
 exports.checkEmail = (req, res) => {
   const { email } = req.body;
-  userModel.getUserByEmail(email, (err, user) => {
-    if (user.rows.length >= 1) {
-      return response(res, 'User founded');
+  userModel.checkEmail(email, (err, user) => {
+    console.log(user);
+    if (user) {
+      return response(res, 'User founded', user);
     } else {
-      return response(res, 'User not found with this email', user[0].email, null, 400);
+      return response(res, 'User not found with this email', null, null, 400);
     }
   });
 };
