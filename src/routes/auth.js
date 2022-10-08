@@ -54,6 +54,6 @@ auth.post('/phone', authMiddleware, ...changePhoneNumberValidation, authControll
 auth.post('/transfer', authMiddleware, ...transactionsValidation, authController.transfer);
 auth.post('/topup', authMiddleware, authController.topup);
 auth.post('/checkPin', authMiddleware, authController.checkPin);
-auth.post('/checkEmail', authMiddleware, authController.checkEmail);
+auth.post('/checkEmail', authController.checkEmail);
 
 module.exports = auth;
