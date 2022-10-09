@@ -312,3 +312,23 @@ exports.checkEmail = (req, res) => {
     }
   });
 };
+
+exports.resetPassword = (req, res) => {
+  const validation = validationResult(req);
+  if (!validation.isEmpty()) {
+    // is empty menandakan tidak ada error
+    console.log(validation.array());
+    return response(res, 'Error occured', validation.array(), null, 400);
+  }
+  const { id } = req.params;
+
+  userModel.changePassword(id, req.body.newpassword, (err, result) => {
+    console.log(err);
+    if (result) {
+      return response(res, 'Reset Password successfully', result[0]);
+    } else {
+      console.log(err);
+      return response(res, 'Reset Password failed', null, null, 400);
+    }
+  });
+};

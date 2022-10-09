@@ -85,10 +85,10 @@ exports.changePassword = (id, data, cb) => {
   const query = `UPDATE users SET password=$2 WHERE id=$1 RETURNING *`;
   db.query(query, val, (err, res) => {
     if (res) {
-      console.log(res);
+      console.log('ini res', res.rows[0]);
       cb(err, res.rows[0]);
     } else {
-      console.log(err);
+      console.log('error', err);
       cb(err);
     }
   });
