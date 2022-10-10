@@ -6,10 +6,10 @@ const upload = require('../helpers/upload').single('picture');
 const { LIMIT_DATA } = process.env;
 
 exports.getAllProfile = (req, res) => {
-  const { search = '', limit = parseInt(LIMIT_DATA), page = 1, sortBy = 'id' } = req.query;
+  const { search = '', limit = parseInt(LIMIT_DATA), page = 1, sort = 0 } = req.query;
   const offset = (page - 1) * limit;
-  console.log('INI REQUEST BARU', sortBy);
-  profileModels.getAllProfile(limit, search, offset, sortBy, (result) => {
+  let sortVal = parseInt(sort) < 1 ? 'ASC' : 'DESC';
+  profileModels.getAllProfile(limit, search, offset, sortVal, (result) => {
     // console.log(result);
     // return response(res, 'message from standard response: request success', result);
     const pageInfo = {};
