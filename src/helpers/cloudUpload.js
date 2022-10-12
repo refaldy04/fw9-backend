@@ -27,7 +27,7 @@ const storage = new CloudinaryStorage({
 const upload = multer({
   storage,
   limits: {
-    fileSize: 1 * 1000 * 1000,
+    fileSize: 4 * 1000 * 1000,
   },
   fileFilter: (req, file, cb) => {
     const allowExt = ['image/jpg', 'image/png', 'image/jpeg'];
