@@ -22,7 +22,8 @@ exports.getProfileById = (id, cb) => {
 };
 
 exports.getProfileByUserId = (id, cb) => {
-  db.query('SELECT * FROM profile WHERE user_id=$1', [id], (err, res) => {
+  console.log('ini id hrusny ada', id);
+  db.query(`SELECT * FROM profile WHERE user_id=$1`, [id], (err, res) => {
     cb(err, res);
   });
 };

@@ -119,7 +119,7 @@ exports.getUserTransaction = (req, res) => {
         return response(res, 'List all transaction', result, pageInfo);
       });
     } else {
-      return res.redirect('/404');
+      return response(res, 'not found', null, null, 400);
     }
   });
 };

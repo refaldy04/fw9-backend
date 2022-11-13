@@ -14,11 +14,12 @@ exports.getTransactionById = (id, cb) => {
 
 exports.getTransactionUser = (id, limit, offset = 0, cb) => {
   // db.query('SELECT * FROM transaction WHERE sender_id=$1 LIMIT $2 OFFSET $3'
+  console.log('13131313131313131313131 id', id);
   db.query(
     'SELECT transaction.id, transaction.time, transaction.type_id, transaction.amount, profile.picture, profile.fullname FROM transaction INNER JOIN profile ON transaction.recipient_id = profile.user_id WHERE sender_id=$1 ORDER BY time DESC LIMIT $2 OFFSET $3',
     [id, limit, offset],
     (err, res) => {
-      console.log(res.rows);
+      console.log('13131313131313131313131313', res);
       if (res) {
         cb(err, res.rows);
       } else {
