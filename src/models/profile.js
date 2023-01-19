@@ -7,9 +7,9 @@ exports.getAllProfile = (id, limit, search, offset, sortBy, cb) => {
   })
 }
 
-exports.countAllProfile = (keyword, cb) => {
+exports.countAllProfile = (id, keyword, cb) => {
   console.log('ini dari modal count', keyword)
-  db.query(`SELECT * FROM profile WHERE fullname LIKE '%${keyword}%'`, (err, res) => {
+  db.query(`SELECT * FROM profile WHERE user_id != ${id} AND fullname LIKE '%${keyword}%'`, (err, res) => {
     cb(err, res.rowCount)
   })
 }

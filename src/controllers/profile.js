@@ -12,7 +12,7 @@ exports.getAllProfile = (req, res) => {
   let sortVal = parseInt(sort) < 1 ? 'ASC' : 'DESC'
   profileModels.getAllProfile(id, limit, search, offset, sortVal, (result) => {
     const pageInfo = {}
-    profileModels.countAllProfile(search, (err, totalData) => {
+    profileModels.countAllProfile(id, search, (err, totalData) => {
       pageInfo.totalData = totalData
       pageInfo.totalPage = Math.ceil(totalData / limit)
       pageInfo.currentPage = parseInt(page)
